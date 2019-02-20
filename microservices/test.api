@@ -1,0 +1,9 @@
+({
+  method: 'get',
+  path: '/test',
+  async handler (request, h) {
+    const time = Date.now()
+    // await new Promise((resolve) => setTimeout(resolve, 15000))
+    return h.response(Date.now() - time)
+  }
+})
