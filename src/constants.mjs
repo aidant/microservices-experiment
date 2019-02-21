@@ -1,0 +1,1 @@
+export const METHODS = ['get', 'head', 'post', 'put', 'delete', 'connect', 'options', 'trace', 'patch']

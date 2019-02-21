@@ -1,7 +1,0 @@
-({
-  method: 'get',
-  path: '/hello',
-  handler (request, h) {
-    return h.response('world')
-  }
-})
