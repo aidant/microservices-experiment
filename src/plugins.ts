@@ -1,15 +1,32 @@
-class Getter {
-  constructor (private plugins: Map) {}
-  get (name: string, version?: string) {}
+export interface Plugin {
+  create (id: string): unknown
+  destroy (id: string): unknown
 }
 
-class Setter {
-  constructor (private plugins: Map) {}
-  set ({ name, version }: { [key: string]: string }) {}
+export class Getter {
+  private initialized: Plugin[] = []
+
+  constructor (
+    private plugins: Map<string, Plugin>,
+    private id: string,
+    destroy: Function
+  ) {
+    destroy(() => this.initialized.map((plugin) => plugin.destroy(id)))
+  }
+
+  get (name: string) {
+    const plugin = this.plugins.get(name)
+    this.initialized.push(plugin)
+    return plugin.create(this.id)
+  }
 }
 
-class Plugins {
-  private plugins = new Map()
-  getter = new Getter(this.plugins)
-  setter = new Setter(this.plugins)
+export class Setter {
+  constructor (private plugins: Map<string, Plugin>) {}
+  set (name: string, plugin: Plugin) {
+    this.plugins.set(name, plugin)
+  }
 }
+
+export class Plugins extends Map<string, Plugin> {}
+export const plugins = new Plugins()

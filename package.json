@@ -1,7 +1,13 @@
 {
+  "scripts": {
+    "start": "nodemon --watch src -e ts --exec \"tsc && node dest\""
+  },
   "dependencies": {
-    "chokidar": "^2.1.2",
-    "express": "^4.16.4",
-    "semver": "^5.6.0"
+    "chokidar": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^11.9.4",
+    "nodemon": "^1.18.10",
+    "typescript": "^3.3.3"
   }
 }
